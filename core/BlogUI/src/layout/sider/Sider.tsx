@@ -4,12 +4,17 @@ import styles from "./sider.module.css"
 import BasicComponent from "@/component/basicComponent/BasicComponent";
 import { Menu } from 'antd';
 import type { MenuProps } from 'antd';
+import Link from "next/link";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [{
     key: 'sub1',
-    label: 'Example 1',
+    label: (
+        <Link href='/feed'>
+            Go to feed
+        </Link>
+    ),
     },
     {
         key: 'sub2',

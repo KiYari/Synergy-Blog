@@ -6,8 +6,8 @@ import Layout from '../layout/Layout';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "K-Note",
-  description: "K-Note app",
+  title: "Blog",
+  description: "Synergy blog application",
 };
 
 export default function RootLayout({
