@@ -1,8 +1,0 @@
-.main {
-    height: 100vh;
-    background: #687ede;
-    position: absolute;
-    transition: all 0.5s ease-in-out;
-    overflow-x: clip;
-    float: left;
-}
