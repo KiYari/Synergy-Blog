@@ -28,7 +28,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post create(Post post) {
+    public Post save(Post post) {
         if (post == null || post.equals(new Post())) {
             throw new IllegalArgumentException("Invalid post");
         }
@@ -38,9 +38,31 @@ public class PostServiceImpl implements PostService {
         }
 
         if (post.getId() != null && postRepository.existsById(post.getId())) {
-            throw new IllegalArgumentException("Post already exists");
+            Post postInDb = get(post.getId());
+            if (postInDb.equals(post)) {
+                throw new IllegalArgumentException("Post already exists");
+            }
         }
 
         return postRepository.save(post);
+    }
+
+    @Override
+    public Post update(Long id, Post post) {
+        Post postToSave = new Post(id, post.getTitle(), post.getContent(), post.getAuthorId());
+        Post postInDb = get(id);
+
+        if (!postToSave.getId().equals(postInDb.getId()) || !postToSave.getAuthorId().equals(postInDb.getAuthorId())) {
+            throw new IllegalArgumentException("Post id or author id is corrupted.");
+        }
+
+        return save(postToSave);
+    }
+
+    @Override
+    public Post delete(Long id) {
+        Post postToDelete = get(id);
+        postRepository.delete(postToDelete);
+        return postToDelete;
     }
 }

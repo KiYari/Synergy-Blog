@@ -2,8 +2,6 @@ package dev.kiyari.posts.service;
 
 import dev.kiyari.posts.model.entity.Post;
 
-import java.util.Optional;
-
 public interface PostService {
     /**
      * Получение поста по id
@@ -19,5 +17,22 @@ public interface PostService {
      * @param post - создаваемый пост
      * @return Выдает созданный пост
      */
-    public Post create(Post post);
+    public Post save(Post post);
+
+    /**
+     * Создание нового поста
+     *
+     * @param post - новый вид поста
+     * @param id - id поста, который обновляем
+     * @return Выдает обновленный пост
+     */
+    public Post update(Long id, Post post);
+
+    /**
+     * Создание нового поста
+     *
+     * @param id - id пост
+     * @return Выдает удаленный пост
+     */
+    public Post delete(Long id);
 }

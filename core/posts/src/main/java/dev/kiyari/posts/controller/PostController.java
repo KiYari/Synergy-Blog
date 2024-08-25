@@ -24,6 +24,18 @@ public class PostController {
     @PostMapping
     @Operation(summary = "Создать новый пост")
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
-        return ResponseEntity.ok(postService.create(post));
+        return ResponseEntity.ok(postService.save(post));
+    }
+
+    @DeleteMapping
+    @Operation(summary = "Удалить пост")
+    public ResponseEntity<Post> deletePost(@RequestParam Long id) {
+        return ResponseEntity.ok(postService.delete(id));
+    }
+
+    @PutMapping
+    @Operation(summary = "Редактировать пост")
+    public ResponseEntity<Post> updatePost(@RequestParam Long id, @RequestBody Post post) {
+        return ResponseEntity.ok(postService.update(id, post));
     }
 }
