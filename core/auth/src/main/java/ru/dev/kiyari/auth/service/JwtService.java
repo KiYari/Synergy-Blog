@@ -2,15 +2,7 @@ package ru.dev.kiyari.auth.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
-public interface JwtService {
-    /**
-     * Извлечение имени пользователя из токена
-     *
-     * @param token токен
-     * @return имя пользователя
-     */
-    String extractUserName(String token);
-
+public interface JwtService extends TokenService{
     /**
      * Генерация токена
      *
@@ -18,13 +10,4 @@ public interface JwtService {
      * @return токен
      */
     String generateToken(UserDetails userDetails);
-
-    /**
-     * Проверка токена на валидность
-     *
-     * @param token       токен
-     * @param userDetails данные пользователя
-     * @return true, если токен валиден
-     */
-    boolean isTokenValid(String token, UserDetails userDetails);
 }

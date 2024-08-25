@@ -11,7 +11,7 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - "dbdata:/var/lib/postgresql/data"
+      - "db:/var/lib/postgresql/data"
 
   auth:
     image: 'auth:latest'
@@ -22,5 +22,14 @@ services:
     environment:
       - 'POSTGRES_HOST: localhost'
 
+  post:
+    image: 'posts:latest'
+    depends_on:
+      - auth
+    ports:
+      - 3444:3444
+    environment:
+      - 'POSTGRES_HOST: localhost'
+
 volumes:
-  dbdata:
+  db:

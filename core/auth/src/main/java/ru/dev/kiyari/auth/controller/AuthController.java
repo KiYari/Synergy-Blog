@@ -14,7 +14,7 @@ import ru.dev.kiyari.auth.model.dto.TokenResponseDto;
 import ru.dev.kiyari.auth.service.AuthenticationService;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @Tag(name = "Аутентификация")
 public class AuthController {
