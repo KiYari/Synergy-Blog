@@ -29,17 +29,21 @@ public class Post {
     @Column(name = "authorId", nullable = false)
     private Long authorId;
 
+    @Setter
+    @Column(name = "isHidden")
+    private Boolean isHidden;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
-        return Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(authorId, post.authorId);
+        return Objects.equals(id, post.id) && Objects.equals(title, post.title) && Objects.equals(content, post.content) && Objects.equals(authorId, post.authorId) && Objects.equals(isHidden, post.isHidden);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, authorId);
+        return Objects.hash(id, title, content, authorId, isHidden);
     }
 
     @Override
@@ -49,6 +53,7 @@ public class Post {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", authorId=" + authorId +
+                ", isHidden=" + isHidden +
                 '}';
     }
 }

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,12 +47,16 @@ public class PostServiceImpl implements PostService {
             }
         }
 
+        if (post.getIsHidden() == null) {
+            post.setIsHidden(false);
+        }
+
         return postRepository.save(post);
     }
 
     @Override
     public Post update(Long id, Post post) {
-        Post postToSave = new Post(id, post.getTitle(), post.getContent(), post.getAuthorId());
+        Post postToSave = new Post(id, post.getTitle(), post.getContent(), post.getAuthorId(), post.getIsHidden());
         Post postInDb = get(id);
 
         if (!postToSave.getId().equals(postInDb.getId()) || !postToSave.getAuthorId().equals(postInDb.getAuthorId())) {
@@ -74,7 +79,9 @@ public class PostServiceImpl implements PostService {
             throw new IllegalArgumentException("Illegal author id");
         }
 
-        return postRepository.findAllByAuthorId(authorId);
+        return postRepository.findAllByAuthorId(authorId).stream()
+                .filter(post -> post.getIsHidden() == null || !post.getIsHidden())
+                .collect(Collectors.toSet());
     }
 
     private boolean isIdValid(Long id) {

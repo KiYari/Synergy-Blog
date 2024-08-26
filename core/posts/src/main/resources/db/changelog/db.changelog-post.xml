@@ -24,5 +24,11 @@
         </sql>
     </changeSet>
 
+    <changeSet id="addHiddenColumn" author="KiYari">
+        <addColumn tableName="posts">
+            <column name="is_hidden" type="boolean"/>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>
