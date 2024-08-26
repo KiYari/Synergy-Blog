@@ -1,6 +1,9 @@
 package ru.dev.kiyari.auth.service;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.function.Function;
 
 public interface TokenService {
     /**
@@ -19,4 +22,14 @@ public interface TokenService {
      * @return имя пользователя
      */
     String extractUserName(String token);
+
+    /**
+     * Извлечение данных из токена
+     *
+     * @param token           токен
+     * @param claimsResolvers функция извлечения данных
+     * @param <T>             тип данных
+     * @return данные
+     */
+    public  <T> T extractClaim(String token, Function<Claims, T> claimsResolvers);
 }

@@ -7,6 +7,8 @@ import dev.kiyari.posts.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -15,7 +17,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post get(Long id) {
-        if (id == null || id < 1) {
+        if (!isIdValid(id)) {
             throw new IllegalArgumentException("Invalid post id");
         }
 
@@ -33,7 +35,7 @@ public class PostServiceImpl implements PostService {
             throw new IllegalArgumentException("Invalid post");
         }
 
-        if (post.getAuthorId() == null || post.getAuthorId() < 1 || !userRepository.existsById(post.getAuthorId())) {
+        if (!isIdValid(post.getAuthorId()) || !userRepository.existsById(post.getAuthorId())) {
             throw new IllegalArgumentException("Illegal post author");
         }
 
@@ -64,5 +66,18 @@ public class PostServiceImpl implements PostService {
         Post postToDelete = get(id);
         postRepository.delete(postToDelete);
         return postToDelete;
+    }
+
+    @Override
+    public Set<Post> getAuthorPosts(Long authorId) {
+        if (!isIdValid(authorId)) {
+            throw new IllegalArgumentException("Illegal author id");
+        }
+
+        return postRepository.findAllByAuthorId(authorId);
+    }
+
+    private boolean isIdValid(Long id) {
+        return id != null && id > 0;
     }
 }

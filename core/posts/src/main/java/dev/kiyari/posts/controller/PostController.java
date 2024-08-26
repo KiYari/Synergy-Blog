@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Set;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/post")
@@ -37,5 +39,11 @@ public class PostController {
     @Operation(summary = "Редактировать пост")
     public ResponseEntity<Post> updatePost(@RequestParam Long id, @RequestBody Post post) {
         return ResponseEntity.ok(postService.update(id, post));
+    }
+
+    @GetMapping("/by")
+    @Operation(summary = "Получить посты пользователя")
+    public ResponseEntity<Set<Post>> getAuthorPosts(@RequestParam Long authorId) {
+        return ResponseEntity.ok(postService.getAuthorPosts(authorId));
     }
 }
